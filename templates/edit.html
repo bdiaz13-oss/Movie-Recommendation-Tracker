@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Recommendation{% endblock %}
+
+{% block content %}
+    <h1>Edit Recommendation</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.title.label(class="form-label") }}
+            {{ form.title(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.year.label(class="form-label") }}
+            {{ form.year(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.rating.label(class="form-label") }}
+            {{ form.rating(class="form-select") }}
+        </div>
+        <!-- NEW/UPDATED SECTION: Genres dropdown with disclosure note -->
+        <div class="mb-3">
+            {{ form.genres.label(class="form-label") }}
+            {{ form.genres(class="form-select", multiple=True) }}
+            <small class="form-text text-muted">Select from existing genres. See full list below if needed.</small>
+        </div>
+        <!-- NEW/UPDATED SECTION: New genres input with disclosure note -->
+        <div class="mb-3">
+            {{ form.new_genres.label(class="form-label") }}
+            {{ form.new_genres(class="form-control") }}
+            <small class="form-text text-muted">Enter new genres here (comma-separated). They'll be added to the list and available in the dropdown after you submit this recommendation.</small>
+        </div>
+        <div class="mb-3">
+            {{ form.watched_date.label(class="form-label") }}
+            {{ form.watched_date(class="form-control", type="date") }}
+        </div>
+        <!-- UPDATED SECTION: Poster URL with clarification (placeholder and note) -->
+        <!-- If you want to REMOVE this entirely instead, delete the whole <div> block below -->
+        <div class="mb-3">
+            {{ form.poster_url.label(class="form-label") }} (Optional)
+            {{ form.poster_url(class="form-control", placeholder="e.g., https://image.tmdb.org/t/p/w500/example-poster.jpg") }}
+            <small class="form-text text-muted">Paste a direct URL to the movie/TV poster image for display on cards (from sites like IMDb or TMDB). Leave blank if not needed.</small>
+        </div>
+        <div class="mb-3">
+            {{ form.platform.label(class="form-label") }}
+            {{ form.platform(class="form-control") }}
+        </div>
+        <div class="mb-3">
+            {{ form.review.label(class="form-label") }}
+            {{ form.review(class="form-control", rows=5) }}
+        </div>
+        <div class="form-check mb-3">
+            {{ form.watched(class="form-check-input") }}
+            {{ form.watched.label(class="form-check-label") }}
+        </div>
+        <div class="form-check mb-3">
+            {{ form.rewatch(class="form-check-input") }}
+            {{ form.rewatch.label(class="form-check-label") }}
+        </div>
+        <!-- NEW SECTION: Visible genre list for reference (place this right before the submit button) -->
+        {% if form.genres.choices %}
+            <div class="mb-3">
+                <h5>Current Available Genres:</h5>
+                <ul class="list-group">
+                    {% for choice in form.genres.choices %}
+                        <li class="list-group-item">{{ choice[1] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p class="text-muted">No genres added yet—start by entering some in the field above!</p>
+        {% endif %}
+
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+{% endblock %}

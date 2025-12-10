@@ -1,0 +1,27 @@
+<!-- templates/genres.html -->
+{% extends 'base.html' %}
+
+{% block title %}Manage Genres{% endblock %}
+
+{% block content %}
+    <h1>Manage Genres</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.genre.label(class="form-label") }}
+            {{ form.genre(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+    <hr>
+    <h2>Current Genres</h2>
+    {% if genres %}
+        <ul class="list-group">
+            {% for genre in genres %}
+                <li class="list-group-item">{{ genre }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No genres added yet.</p>
+    {% endif %}
+{% endblock %}

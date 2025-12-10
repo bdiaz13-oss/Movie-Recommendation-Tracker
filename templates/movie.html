@@ -1,0 +1,51 @@
+<!-- templates/movie.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ rec.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ rec.title }} {% if rec.year %}({{ rec.year }}){% endif %}</h1>
+    {% if rec.poster_url %}
+        <img src="{{ rec.poster_url }}" alt="Poster for {{ rec.title }}" class="img-fluid mb-3" style="max-width: 300px;">
+    {% endif %}
+    <div class="mb-3">
+        <strong>Rating:</strong>
+        {% for i in range(rec.rating) %}
+            <i class="fas fa-star text-warning"></i>
+        {% endfor %}
+        {% for i in range(10 - rec.rating) %}
+            <i class="far fa-star text-warning"></i>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        <strong>Genres:</strong>
+        {% for genre in rec.genres %}
+            <span class="badge bg-secondary">{{ genre }}</span>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        <strong>Watched Date:</strong> {{ rec.watched_date }}
+    </div>
+    {% if rec.platform %}
+        <div class="mb-3">
+            <strong>Platform:</strong> {{ rec.platform }}
+        </div>
+    {% endif %}
+    <div class="mb-3">
+        <strong>Watched:</strong> {{ 'Yes' if rec.watched else 'No' }}
+    </div>
+    <div class="mb-3">
+        <strong>Rewatch:</strong> {{ 'Yes' if rec.rewatch else 'No' }}
+    </div>
+    <div class="mb-3">
+        <strong>Review:</strong>
+        <div class="border p-3 bg-dark">{{ rec.review_html | safe }}</div>
+    </div>
+    <small class="text-muted">Added: {{ rec.added_at }}</small>
+    <hr>
+    <a href="{{ url_for('edit', id=rec.id) }}" class="btn btn-warning">Edit</a>
+    <form action="{{ url_for('delete', id=rec.id) }}" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this recommendation?');">Delete</button>
+    </form>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}

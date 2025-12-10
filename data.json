@@ -1,0 +1,64 @@
+{
+    "next_id": 4,
+    "genres": [
+        "Comedy",
+        "Horror",
+        "Sci-fi",
+        "idk"
+    ],
+    "recommendations": [
+        {
+            "id": 1,
+            "title": "Castaway",
+            "year": 2000,
+            "rating": 6,
+            "genres": [
+                "Horror",
+                "Sci-fi",
+                "idk"
+            ],
+            "watched_date": "2025-12-09",
+            "poster_url": "",
+            "platform": "Netflix",
+            "review": "its alright. lot of quiet",
+            "watched": true,
+            "rewatch": false,
+            "added_at": "2025-12-10T04:28:03.390655"
+        },
+        {
+            "id": 2,
+            "title": "Robots",
+            "year": 2005,
+            "rating": 9,
+            "genres": [
+                "Sci-fi",
+                "Comedy"
+            ],
+            "watched_date": "2025-12-09",
+            "poster_url": "https://www.bing.com/ck/a?!&&p=61b13c6f6c4fc3e6c376ff74a717d7153563dc67bb15fcbf55c4e56bb9ce3886JmltdHM9MTc2NTIzODQwMA&ptn=3&ver=2&hsh=4&fclid=07d99bd4-5561-6705-1874-883954fd66de&psq=robots+movie&u=a1aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvUm9ib3RzXygyMDA1X2ZpbG0pI0hlcm9TZWN0aW9u",
+            "platform": "Netflix",
+            "review": "Loved it as a kid. Will Ferrell's pretty decent too.",
+            "watched": true,
+            "rewatch": true,
+            "added_at": "2025-12-10T04:35:46.953192"
+        },
+        {
+            "id": 3,
+            "title": "Knights of Sidonia",
+            "year": 2014,
+            "rating": 8,
+            "genres": [
+                "Sci-fi",
+                "Comedy",
+                "Sci-fi"
+            ],
+            "watched_date": "2025-12-09",
+            "poster_url": "https://vignette.wikia.nocookie.net/netflix/images/3/33/Knights_of_Sidonia.png/revision/latest/scale-to-width-down/310?cb=20200629083009",
+            "platform": "Netflix",
+            "review": "liked it. cgi kinda weird but nice.",
+            "watched": true,
+            "rewatch": false,
+            "added_at": "2025-12-10T04:38:11.951181"
+        }
+    ]
+}

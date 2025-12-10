@@ -1,0 +1,49 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">My Personal Movie Recommendation Tracker</h1>
+    <a href="{{ url_for('add') }}" class="btn btn-primary mb-4">Add New Recommendation</a>
+    {% if search_query %}
+        <p>Search results for "{{ search_query }}"</p>
+    {% endif %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for rec in recommendations %}
+            <div class="col">
+                <div class="card h-100">
+                    {% if rec.poster_url %}
+                        <img src="{{ rec.poster_url }}" class="card-img-top" alt="Poster for {{ rec.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ rec.title }} {% if rec.year %}({{ rec.year }}){% endif %}</h5>
+                        <div class="mb-2">
+                            {% for i in range(rec.rating) %}
+                                <i class="fas fa-star text-warning"></i>
+                            {% endfor %}
+                            {% for i in range(10 - rec.rating) %}
+                                <i class="far fa-star text-warning"></i>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-2">
+                            {% for genre in rec.genres %}
+                                <span class="badge bg-secondary">{{ genre }}</span>
+                            {% endfor %}
+                        </div>
+                        <p class="card-text">{{ rec.review[:120] }}{% if rec.review|length > 120 %}...{% endif %}</p>
+                        <small class="text-muted">Added: {{ rec.added_at[:10] }}</small>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url_for('view', id=rec.id) }}" class="btn btn-sm btn-outline-primary">View →</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if has_more %}
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index', page=page+1) }}" class="btn btn-secondary">Load More</a>
+        </div>
+    {% endif %}
+{% endblock %}
