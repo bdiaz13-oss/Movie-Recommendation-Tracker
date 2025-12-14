@@ -21,8 +21,8 @@
         <!-- NEW/UPDATED SECTION: Genres dropdown with disclosure note -->
         <div class="mb-3">
             {{ form.genres.label(class="form-label") }}
-            {{ form.genres(class="form-select", multiple=True) }}
-            <small class="form-text text-muted">Select from existing genres. See full list below if needed.</small>
+            {{ form.genres(class="form-select", multiple=True, id="genres") }}
+            <small class="form-text text-muted"><strong>Hold Shift + click</strong> to select a range. <strong>Hold Ctrl (or Cmd)</strong> to add/remove individual genres.</small>
         </div>
         <!-- NEW/UPDATED SECTION: New genres input with disclosure note -->
         <div class="mb-3">
@@ -57,20 +57,6 @@
             {{ form.rewatch(class="form-check-input") }}
             {{ form.rewatch.label(class="form-check-label") }}
         </div>
-        <!-- NEW SECTION: Visible genre list for reference (place this right before the submit button) -->
-        {% if form.genres.choices %}
-            <div class="mb-3">
-                <h5>Current Available Genres:</h5>
-                <ul class="list-group">
-                    {% for choice in form.genres.choices %}
-                        <li class="list-group-item">{{ choice[1] }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% else %}
-            <p class="text-muted">No genres added yet—start by entering some in the field above!</p>
-        {% endif %}
-
         {{ form.submit(class="btn btn-primary") }}
     </form>
 {% endblock %}

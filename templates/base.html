@@ -53,26 +53,52 @@
         <p>&copy; 2025 Personal Movie Tracker</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <!-- ... existing footer and Bootstrap script ... -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <!-- NEW SECTION: JS for dynamic genre addition (place right here, before </body>) -->
+    <!-- Genre multi-select with Shift+Click range and Ctrl+Click individual selection -->
     <script>
-        function addNewGenres() {
-            const newGenresInput = document.querySelector('#new_genres');
+        document.addEventListener('DOMContentLoaded', function() {
             const genresSelect = document.querySelector('#genres');
-            const newGenres = newGenresInput.value.split(',').map(g => g.trim()).filter(g => g);
-            newGenres.forEach(genre => {
-                if (!Array.from(genresSelect.options).some(opt => opt.value === genre)) {
-                    const option = document.createElement('option');
-                    option.value = genre;
-                    option.text = genre;
-                    option.selected = true;  // Auto-select new ones
-                    genresSelect.appendChild(option);
-                }
-            });
-            newGenresInput.value = '';  // Clear input after adding
-        }
+            if (genresSelect) {
+                let lastSelectedIndex = -1;
+                let isScrolling = false;
+                
+                // Detect scrolling to prevent accidental selections
+                genresSelect.addEventListener('scroll', function() {
+                    isScrolling = true;
+                });
+                
+                genresSelect.addEventListener('mousedown', function(event) {
+                    if (isScrolling) {
+                        isScrolling = false;
+                        return;
+                    }
+                    
+                    if (event.target.tagName === 'OPTION') {
+                        const currentIndex = event.target.index;
+                        
+                        if (event.shiftKey && lastSelectedIndex !== -1) {
+                            // Shift+Click: select range
+                            event.preventDefault();
+                            const start = Math.min(lastSelectedIndex, currentIndex);
+                            const end = Math.max(lastSelectedIndex, currentIndex);
+                            
+                            for (let i = start; i <= end; i++) {
+                                this.options[i].selected = true;
+                            }
+                            lastSelectedIndex = currentIndex;
+                        } else if (event.ctrlKey || event.metaKey) {
+                            // Ctrl/Cmd+Click: toggle individual item
+                            event.preventDefault();
+                            event.target.selected = !event.target.selected;
+                            lastSelectedIndex = currentIndex;
+                        } else {
+                            // Regular click: clear others and select this one
+                            lastSelectedIndex = currentIndex;
+                        }
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
